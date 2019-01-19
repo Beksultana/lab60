@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Message from "./containers/Message/Message";
+import Messages from "./containers/Messages/Messages";
 
 class App extends Component {
   render() {
-    return <Message/>
+    return <Messages/>
   }
 }
 

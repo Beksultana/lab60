@@ -1,0 +1,19 @@
+.card{
+    margin: 12px 0;
+    color: black;
+    box-shadow: 0 4px 9px #ccc;
+}
+.dateText{
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 10%;
+    right: 20px;
+}
+.text{
+    margin: 5px 0;
+}
+strong{
+    margin-right: 10px;
+}
