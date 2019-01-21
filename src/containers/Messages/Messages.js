@@ -72,21 +72,25 @@ class Messages extends Component {
     render() {
         console.log("update");
         return (
+            <div >
+                <div className={'mainTitle'}>
+                    <h1 className={'messageText'}>Messages</h1>
+                </div>
             <div className={'Messages'}>
                 <div className="messContent">
-                    <div className={'mainTitle'}>
-                        <h1 className={'messageText'}>Messages</h1>
-                    </div>
                     <div className={'messagesBlock'}>
                         {
-                            this.state.mess.map((message, index) => (
-                                <Message
-                                    key={index}
-                                    author={message.author}
-                                    message={message.message}
-                                    date={message.datetime}
-                                />
-                            ))
+                            this.state.mess.map(message => {
+                                const fullDate = new Date(message.datetime);
+                                const messageDate = fullDate.toLocaleString('ru-RU');
+                                return(
+                                    <Message
+                                        key={message._id}
+                                        author={message.author}
+                                        message={message.message}
+                                        date={messageDate}
+                                    />
+                                )})
                         }
                     </div>
                 </div>
@@ -95,6 +99,7 @@ class Messages extends Component {
                     onChangeMessage={event => this.onChangeMessageHandler(event)}
                     onClickedd={this.onClickAdd}
                 />
+            </div>
             </div>
         );
     }
