@@ -24,3 +24,12 @@ strong{
 .dateText{
     color: #aaaa;
 }
+.authorName{
+    padding: 0 0 0 40px;
+    color: #eeea17;
+    background: url('../../../src/assets/user-silhouette.png') no-repeat;
+}
+.authorMessage{
+    padding: 0 0 0 40px;
+    background: url('../../../src/assets/message.png') no-repeat;
+}
