@@ -9,25 +9,42 @@ class Messages extends Component {
         mess: [],
     };
 
-    componentDidMount(){
-        axios.get('http://146.185.154.90:8000/messages')
-            .then(response => {
-                console.log(response);
-                const mess = response.data;
-
-                    this.setState({mess})
-
-            }).catch(error => {
-            console.log(error)
-        });
-
+    shouldComponentUpdate(nextProps, nextState){
+        return this.state.mess.length !== nextState.mess.length
     }
 
-    render() {
+    componentDidMount() {
 
+        this.interval = setInterval(() => {
+            axios.get('http://146.185.154.90:8000/messages')
+                .then(response => {
+                    const mess = response.data;
+                    this.setState({mess});
+                }).catch(error => {
+                console.log(error);
+            });
+        }, 2000)
+    };
+
+    componentDidUpdate() {
+        const lastDateTime = this.state.mess[this.state.mess.length - 1].datetime;
+
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            axios.get('http://146.185.154.90:8000/messages?datetime=' + lastDateTime)
+                .then(response => {
+                    const mess = response.data;
+                    this.setState({mess: [...this.state.mess].concat(mess)});
+                }).catch(error => {
+                console.log(error);
+            });
+        }, 2000)
+    };
+
+    render() {
+        console.log("update");
         return (
             <div className={'Messages'}>
-                <AddMassage/>
                 <div>
                     <h1 className={'messageText'}>Messages</h1>
                 </div>
@@ -41,9 +58,9 @@ class Messages extends Component {
                                 date={message.datetime}
                             />
                         ))
-
                     }
                 </div>
+                <AddMassage/>
             </div>
         );
     }
